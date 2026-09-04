@@ -1,27 +1,8 @@
-print("Student Performance Analyzer")
-print("My first real Git project!")
-import csv
+import pandas as pd
+from src.analysis import calculate_averages
 
-students = []
+data = pd.read_csv("data/students.csv")
 
-with open("data/students.csv", "r") as file:
-    reader = csv.DictReader(file)
+data = calculate_averages(data)
 
-    for student in reader:
-        maths = int(student["Maths"])
-        science = int(student["Science"])
-        english = int(student["English"])
-
-        average = (maths + science + english) / 3
-
-        students.append({
-            "Name": student["Name"],
-            "Average": average
-        })
-
-        print(student["Name"], "Average:", round(average, 2))
-
-top_student = max(students, key=lambda student: student["Average"])
-
-print("\nTop Student:", top_student["Name"])
-print("Highest Average:", round(top_student["Average"], 2))
+print(data)
